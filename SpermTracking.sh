@@ -17,17 +17,17 @@ echo "Starting my job..."
 start_time=$(date +%s)
 
 aviPath=$1
-path_to_executable="${PWD%/*}/Sperm_Cellpose.py"
+path_to_executable="${PWD}/Sperm_Cellpose.py"
 
 # ########### PYTHON PROGRAM #############################
 # Ensure output directory exists
 mkdir -p "${PWD}/output"
 
 # Correct output file name
-output_names="${PWD}/output/output_${SLURM_JOB_ID}_$(basename ${kwarg_location})"
+output_names="${PWD}/output/output_${SLURM_JOB_ID}"
 
 # Activate the environment and run the script
-source ../.venv/bin/activate
+source .venv/bin/activate
 python "$path_to_executable" "$aviPath" >> "$output_names" 2>&1 &
 wait
 

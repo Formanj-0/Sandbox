@@ -5,7 +5,7 @@ from cellpose import models
 import numpy as np
 from skimage.color import rgb2gray
 from skimage.measure import regionprops_table, regionprops
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import torch
 import pandas as pd
 import argparse
@@ -28,6 +28,7 @@ parser.add_argument("input_video_path", type=str, help="Path to the input video 
 args = parser.parse_args()
 
 input_video_path = args.input_video_path
+print(f'Analysising {input_video_path}')
 
 cap = cv2.VideoCapture(input_video_path)
 imgs = []
@@ -68,9 +69,9 @@ for t in range(len(masks)):
 
 
 # %%
-for t in range(len(masks)):
-    plt.imshow(masks[t])
-    plt.show()
+# for t in range(len(masks)):
+#     plt.imshow(masks[t])
+#     plt.show()
 
 # %%
 values_to_measure = ['label', 'area', 'centroid', 'bbox']
@@ -94,6 +95,7 @@ output_csv_path = os.path.splitext(input_video_path)[0] + '_sperm_measurements.c
 df.to_csv(output_csv_path)
 
 # %%
+
 
 
 
