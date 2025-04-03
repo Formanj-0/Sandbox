@@ -49,10 +49,7 @@ cap.release()
 imgs = np.stack(imgs, axis=0)
 
 # %%
-imgs.shape
-
-# %%
-cp = models.CellposeModel(gpu=True, device=torch.device(device), pretrained_model=r'Data\Videos\human_20241212_500e')
+cp = models.CellposeModel(gpu=True, device=torch.device(device), pretrained_model=r'/home/formanj/Github/Sandbox/Data/Videos/human_20241212_500e')
 sz = models.SizeModel(cp, device=torch.device(device))
 
 model = models.Cellpose(gpu=True, device=torch.device(device))
@@ -66,12 +63,6 @@ for t in range(len(masks)):
     results = model.eval(imgs[t])
     mask, flow, style, diams = results[0], results[1][0], results[1][1], results[2]
     masks[t] = mask.astype(int)
-
-
-# %%
-# for t in range(len(masks)):
-#     plt.imshow(masks[t])
-#     plt.show()
 
 # %%
 values_to_measure = ['label', 'area', 'centroid', 'bbox']
@@ -95,6 +86,7 @@ output_csv_path = os.path.splitext(input_video_path)[0] + '_sperm_measurements.c
 df.to_csv(output_csv_path)
 
 # %%
+np.save(os.path.splitext(input_video_path)[0] + '_sperm_masks.npy', masks)
 
 
 
